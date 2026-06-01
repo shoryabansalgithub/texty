@@ -205,6 +205,7 @@
     return null;
   }
 
+  // Only count immediate text nodes — avoids matching text of deep descendants
   function hasDirectText(el) {
     for (const child of el.childNodes) {
       if (child.nodeType === Node.TEXT_NODE && child.textContent.trim()) return true;
