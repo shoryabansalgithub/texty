@@ -22,4 +22,11 @@
   pointer-events: auto;
   user-select: none;
   -webkit-user-select: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+}
+#texty-tooltip.texty-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
