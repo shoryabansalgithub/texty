@@ -51,4 +51,10 @@
   ];
   const HOVER_DELAY = 180;
   const TOOLTIP_GAP = 14;
+  let tooltip = null;
+  let hoverTimer = null;
+  let pinnedEl = null;
+  let currentEl = null;
+  let lastMouseX = 0;
+  let lastMouseY = 0;
 })();
