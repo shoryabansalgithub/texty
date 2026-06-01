@@ -17,7 +17,7 @@
     {
       key: "fontFamily",
       label: "font-family",
-      transform: (v) => v.split(",")[0].trim().replace(/^["']|["']$/g, ""),
+      transform: extractFontFamily,
     },
     { key: "fontSize", label: "font-size" },
     { key: "lineHeight", label: "line-height" },
@@ -159,29 +159,31 @@
     if (!textyEnabled) return;
     if (e.target.closest("#texty-tooltip")) return;
 
-    if (pinnedEl) {
+    // Click on already-pinned element → unpin
+    if (pinnedEl && e.target === pinnedEl) {
       unpin();
-      const newEl = findTextElement(e.target);
-      if (newEl) {
-        currentEl = newEl;
-        showTooltip(newEl);
-        pin(newEl, e.clientX, e.clientY);
-      }
       return;
     }
 
+    // Find the text element under the click
     const el = findTextElement(e.target);
-    if (!el) return;
-
-    if (currentEl === el && tooltip.classList.contains("texty-visible")) {
-      pin(el, e.clientX, e.clientY);
+    if (!el) {
+      // Clicked empty space — unpin if pinned
+      if (pinnedEl) unpin();
       return;
     }
 
-    clearTimeout(hoverTimer);
+    // Unpin previous, then pin the new one
+    if (pinnedEl) unpin();
+
+    // Pin immediately so mouseout/mouseleave won't hide the tooltip
+    pinnedEl = el;
     currentEl = el;
+    clearTimeout(hoverTimer);
     showTooltip(el);
-    pin(el, e.clientX, e.clientY);
+    positionTooltip(e.clientX, e.clientY);
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("scroll", onResize, { passive: true });
   }
 
   function onKeyDown(e) {
@@ -325,6 +327,12 @@
     tooltip._payload = visible
       .map((p) => p.label + ": " + p.value + ";")
       .join("\n");
+  }
+  function extractFontFamily(v) {
+    // getComputedStyle returns the full stack e.g. 'Inter, -apple-system, "Segoe UI", sans-serif'
+    // Take the first font, strip quotes, and handle generic keywords
+    const first = v.split(",")[0].trim().replace(/^["']|["']$/g, "");
+    return first || v;
   }
   function rgbToHex(rgb) {
     const m = rgb.match(
