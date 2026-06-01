@@ -329,10 +329,16 @@
       .join("\n");
   }
   function extractFontFamily(v) {
-    // getComputedStyle returns the full stack e.g. 'Inter, -apple-system, "Segoe UI", sans-serif'
-    // Take the first font, strip quotes, and handle generic keywords
-    const first = v.split(",")[0].trim().replace(/^["']|["']$/g, "");
-    return first || v;
+    // getComputedStyle returns the full specified stack, not the rendered font.
+    // Use document.fonts.check() to find the first font that is actually loaded.
+    const families = v.split(",").map((s) => s.trim().replace(/^["']|["']$/g, ""));
+    for (const family of families) {
+      if (document.fonts && document.fonts.check("12px " + family)) {
+        return family;
+      }
+    }
+    // Fallback: return the first font even if it may not be the rendered one
+    return families[0] || v;
   }
   function rgbToHex(rgb) {
     const m = rgb.match(
