@@ -86,3 +86,25 @@ MIT
 Texty is a single content script injected at `document_end`. It listens for hover and click events on the document, identifies the nearest inspectable text element, reads its computed CSS properties via `getComputedStyle`, and renders the results into a floating DOM node.
 
 No frameworks. No build pipeline. Roughly 350 lines of vanilla JavaScript.
+
+## Browser Support
+
+Chrome 88+, Edge 88+, and any Chromium-based browser supporting Manifest V3. Firefox support requires minor adjustments to the manifest.
+
+## Design Principles
+
+- **Raw truth** — show computed values, never interpret or guess
+- **Instant** — one action (hover or click) reveals everything
+- **Copyable** — every property and the full payload are one click away from the clipboard
+- **Unobtrusive** — zero-impact when not in use; no DOM mutations to the page
+
+## Why Texty
+
+Because opening DevTools to inspect typography is unnecessarily slow. The browser already knows everything about a piece of text. Texty surfaces that knowledge instantly, without panels, tabs, or hunting through the DOM tree.
+
+## Edge Cases
+
+- **Large containers** — elements spanning >90% of the viewport are skipped
+- **Hidden elements** — `display:none`, `visibility:hidden`, and `opacity:0` elements are ignored
+- **Input fields** — `<input>` and `<textarea>` are inspectable despite having no DOM text nodes
+- **Viewport edges** — the tooltip auto-flips horizontally and vertically to stay visible
