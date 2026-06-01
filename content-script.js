@@ -57,4 +57,42 @@
   let currentEl = null;
   let lastMouseX = 0;
   let lastMouseY = 0;
+  function init() {
+    if (document.getElementById("texty-tooltip")) return;
+    tooltip = buildTooltip();
+    document.body.appendChild(tooltip);
+    document.addEventListener("mouseover", onMouseOver, { passive: true });
+    document.addEventListener("mouseout", onMouseOut, { passive: true });
+    document.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("click", onClick, { passive: true });
+    document.addEventListener("keydown", onKeyDown, { passive: true });
+  }
+
+  function buildTooltip() {
+    const el = document.createElement("div");
+    el.id = "texty-tooltip";
+    el.setAttribute("role", "tooltip");
+
+    const rows = document.createElement("div");
+    rows.className = "texty-rows";
+    el.appendChild(rows);
+
+    const divider = document.createElement("div");
+    divider.className = "texty-divider";
+    el.appendChild(divider);
+
+    const copyAll = document.createElement("button");
+    copyAll.className = "texty-copy-all";
+    copyAll.innerHTML = `${COPY_ICON} Copy All`;
+    copyAll.addEventListener("click", (e) => {
+      e.stopPropagation();
+      copyAllProperties();
+    });
+    el.appendChild(copyAll);
+
+    el.addEventListener("click", (e) => e.stopPropagation());
+    el.addEventListener("mousedown", (e) => e.stopPropagation());
+
+    return el;
+  }
 })();
