@@ -21,7 +21,7 @@
   color: var(--ty-text);
   min-width: 272px;
   max-width: 380px;
-  pointer-events: auto;
+  pointer-events: auto; /* tooltip must be clickable for copy buttons */
   user-select: none;
   -webkit-user-select: none;
   opacity: 0;
