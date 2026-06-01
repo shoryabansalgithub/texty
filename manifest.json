@@ -2,5 +2,13 @@
   "manifest_version": 3,
   "name": "Texty",
   "version": "1.0.0",
-  "description": "Typography inspection layer for the web."
+  "description": "Typography inspection layer for the web.",
+  "permissions": ["clipboardWrite"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_end"
+    }
+  ]
 }
