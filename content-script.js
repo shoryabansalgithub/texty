@@ -187,6 +187,7 @@
   }
 
   function findTextElement(el) {
+    // Elements never inspected — structural, media, or programmatic only
     const BLOCK = new Set([
       "HTML","BODY","HEAD","SCRIPT","STYLE","NOSCRIPT",
       "IFRAME","OBJECT","EMBED","SVG","CANVAS","VIDEO","AUDIO","TEMPLATE",
