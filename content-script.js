@@ -295,6 +295,7 @@
       rows.appendChild(row);
     }
 
+    // Store formatted payload for copy-all (avoids re-serializing)
     tooltip._payload = visible
       .map((p) => p.label + ": " + p.value + ";")
       .join("\n");
