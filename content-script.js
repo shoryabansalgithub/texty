@@ -64,7 +64,7 @@
     if (document.getElementById("texty-tooltip")) return;
     tooltip = buildTooltip();
     document.body.appendChild(tooltip);
-    document.addEventListener("mouseover", onMouseOver, { passive: true });
+    document.addEventListener("mouseover", onMouseOver, { passive: true }); // passive: never calls preventDefault
     document.addEventListener("mouseout", onMouseOut, { passive: true });
     document.addEventListener("mousemove", onMouseMove, { passive: true });
     document.addEventListener("click", onClick, { passive: true });
