@@ -158,4 +158,59 @@
       unpin();
       hideTooltip();
     }
+  }
+  function pin(el, x, y) {
+    pinnedEl = el;
+    currentEl = el;
+    positionTooltip(x, y);
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("scroll", onResize, { passive: true });
+  }
+
+  function unpin() {
+    pinnedEl = null;
+    window.removeEventListener("resize", onResize);
+    window.removeEventListener("scroll", onResize);
+    hideTooltip();
+  }
+
+  function onResize() {
+    if (pinnedEl) positionTooltipPinned();
+  }
+
+  function findTextElement(el) {
+    const BLOCK = new Set([
+      "HTML","BODY","HEAD","SCRIPT","STYLE","NOSCRIPT",
+      "IFRAME","OBJECT","EMBED","SVG","CANVAS","VIDEO","AUDIO","TEMPLATE",
+    ]);
+    let node = el;
+    while (node && node !== document.documentElement) {
+      const tag = node.tagName;
+      if (!tag || BLOCK.has(tag)) return null;
+      if (node.id === "texty-tooltip") return null;
+      const isInput = tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT";
+      const hasText = hasDirectText(node);
+      if ((hasText || isInput) && isInspectable(node)) return node;
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  function hasDirectText(el) {
+    for (const child of el.childNodes) {
+      if (child.nodeType === Node.TEXT_NODE && child.textContent.trim()) return true;
+    }
+    return false;
+  }
+
+  function isInspectable(el) {
+    const rect = el.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return false;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    if (rect.width > vw * 0.9 && rect.height > vh * 0.7) return false;
+    const style = getComputedStyle(el);
+    if (style.display === "none" || style.visibility === "hidden") return false;
+    if (parseFloat(style.opacity) === 0) return false;
+    return true;
   })();
