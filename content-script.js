@@ -246,4 +246,46 @@
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
     positionTooltip(cx, cy);
+  function render(el) {
+    const style = getComputedStyle(el);
+    const rows = tooltip.querySelector(".texty-rows");
+    rows.innerHTML = "";
+
+    const visible = [];
+    for (const prop of PROPERTIES) {
+      let value = style[prop.key];
+      if (!value) continue;
+      if (prop.hide && prop.hide(value, style)) continue;
+      if (prop.transform) value = prop.transform(value);
+      visible.push({ label: prop.label, value });
+    }
+
+    for (const { label, value } of visible) {
+      const row = document.createElement("div");
+      row.className = "texty-row";
+
+      const labelEl = document.createElement("span");
+      labelEl.className = "texty-label";
+      labelEl.textContent = label + ":";
+
+      const valueEl = document.createElement("span");
+      valueEl.className = "texty-value";
+      valueEl.textContent = value;
+      valueEl.title = value;
+
+      const copyBtn = document.createElement("button");
+      copyBtn.className = "texty-copy";
+      copyBtn.innerHTML = COPY_ICON;
+      copyBtn.title = "Copy " + label;
+      copyBtn.addEventListener("click", () => copySingle(label, value, copyBtn));
+
+      row.appendChild(labelEl);
+      row.appendChild(valueEl);
+      row.appendChild(copyBtn);
+      rows.appendChild(row);
+    }
+
+    tooltip._payload = visible
+      .map((p) => p.label + ": " + p.value + ";")
+      .join("\n");
   })();
