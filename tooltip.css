@@ -16,6 +16,8 @@
   font-family: "SF Mono", "Fira Code", "Cascadia Code", "JetBrains Mono", ui-monospace, monospace;
   font-size: 11.5px;
   line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: var(--ty-text);
   min-width: 272px;
   max-width: 380px;
