@@ -92,7 +92,12 @@
 
     el.addEventListener("click", (e) => e.stopPropagation());
     el.addEventListener("mousedown", (e) => e.stopPropagation());
-
+    el.addEventListener("mouseleave", (e) => {
+      if (pinnedEl) return;
+      if (e.relatedTarget && currentEl && currentEl.contains(e.relatedTarget)) return;
+      hideTooltip();
+      currentEl = null;
+    });
     return el;
   }
   function onMouseOver(e) {
