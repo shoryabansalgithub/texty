@@ -80,3 +80,9 @@ No build step. No dependencies. Edit and reload.
 ## License
 
 MIT
+
+## Architecture
+
+Texty is a single content script injected at `document_end`. It listens for hover and click events on the document, identifies the nearest inspectable text element, reads its computed CSS properties via `getComputedStyle`, and renders the results into a floating DOM node.
+
+No frameworks. No build pipeline. Roughly 350 lines of vanilla JavaScript.
