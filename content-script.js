@@ -8,6 +8,22 @@
 
   const CHECK_ICON =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  const PROPERTIES = [
+    {
+      key: "fontFamily",
+      label: "font-family",
+      transform: (v) => v.split(",")[0].trim().replace(/^["']|["']$/g, ""),
+    },
+    { key: "fontSize", label: "font-size" },
+    { key: "lineHeight", label: "line-height" },
+    { key: "fontWeight", label: "font-weight" },
+    { key: "letterSpacing", label: "letter-spacing" },
+    {
+      key: "color",
+      label: "color",
+      transform: rgbToHex,
+    },
+  ];
   const HOVER_DELAY = 180;
   const TOOLTIP_GAP = 14;
 })();
