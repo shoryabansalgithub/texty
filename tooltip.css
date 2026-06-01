@@ -57,3 +57,35 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+/* Copy button (per property) */
+.texty-copy {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0;
+  color: var(--ty-accent);
+  opacity: 0;
+  transition: opacity 0.12s, background 0.12s, color 0.12s;
+}
+.texty-row:hover .texty-copy {
+  opacity: 1;
+}
+.texty-copy:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+.texty-copy:active {
+  background: rgba(255, 255, 255, 0.12);
+}
+.texty-copy svg {
+  width: 13px;
+  height: 13px;
+  display: block;
+}
