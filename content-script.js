@@ -213,4 +213,37 @@
     if (style.display === "none" || style.visibility === "hidden") return false;
     if (parseFloat(style.opacity) === 0) return false;
     return true;
+  function showTooltip(el) {
+    if (!tooltip) return;
+    render(el);
+    positionTooltip(lastMouseX, lastMouseY);
+    tooltip.classList.add("texty-visible");
+  }
+
+  function hideTooltip() {
+    if (pinnedEl) return;
+    tooltip.classList.remove("texty-visible");
+    currentEl = null;
+  }
+
+  function positionTooltip(cx, cy) {
+    const rect = tooltip.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let left = cx + TOOLTIP_GAP;
+    let top = cy + TOOLTIP_GAP;
+    if (left + rect.width > vw - 8) left = cx - rect.width - TOOLTIP_GAP;
+    if (left < 8) left = 8;
+    if (top + rect.height > vh - 8) top = cy - rect.height - TOOLTIP_GAP;
+    if (top < 8) top = 8;
+    tooltip.style.left = left + "px";
+    tooltip.style.top = top + "px";
+  }
+
+  function positionTooltipPinned() {
+    if (!pinnedEl) return;
+    const rect = pinnedEl.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    positionTooltip(cx, cy);
   })();
