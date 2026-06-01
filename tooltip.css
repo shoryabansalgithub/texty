@@ -134,3 +134,8 @@
 .texty-copied svg {
   color: #4ade80;
 }
+@media (prefers-reduced-motion: reduce) {
+  #texty-tooltip {
+    transition: none;
+  }
+}
