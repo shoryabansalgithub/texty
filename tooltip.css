@@ -25,6 +25,12 @@
   opacity: 0;
   transform: translateY(4px);
   transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 4px 24px rgba(0, 0, 0, 0.6),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
 }
 #texty-tooltip.texty-visible {
   opacity: 1;
