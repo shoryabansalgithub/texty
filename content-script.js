@@ -289,6 +289,26 @@
     const rows = tooltip.querySelector(".texty-rows");
     rows.innerHTML = "";
 
+    // Show which element is being inspected
+    const tagRow = document.createElement("div");
+    tagRow.className = "texty-row";
+    const tagLabel = document.createElement("span");
+    tagLabel.className = "texty-label";
+    tagLabel.textContent = "element:";
+    const tagValue = document.createElement("span");
+    tagValue.className = "texty-value";
+    tagValue.style.color = "var(--ty-muted)";
+    const tagName = el.tagName.toLowerCase();
+    const cls = el.className && typeof el.className === "string"
+      ? "." + el.className.trim().split(/\s+/).slice(0, 2).join(".")
+      : "";
+    const id = el.id ? "#" + el.id : "";
+    tagValue.textContent = "<" + tagName + id + cls + ">";
+    tagValue.title = "Inspected element: " + tagValue.textContent;
+    tagRow.appendChild(tagLabel);
+    tagRow.appendChild(tagValue);
+    rows.appendChild(tagRow);
+
     const visible = [];
     for (const prop of PROPERTIES) {
       let value = style[prop.key];
@@ -341,8 +361,9 @@
     return families[0] || v;
   }
   function rgbToHex(rgb) {
+    // Handle both legacy "rgb(1,2,3)" and modern "rgb(1 2 3)" / "rgb(1 2 3 / 0.5)" formats
     const m = rgb.match(
-      /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)/
+      /rgba?\(\s*(\d+)\s*[, ]\s*(\d+)\s*[, ]\s*(\d+)\s*(?:[,/]\s*([\d.]+)\s*)?\)/
     );
     if (!m) return rgb;
     const r = parseInt(m[1], 10);
