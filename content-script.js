@@ -213,6 +213,7 @@
     return false;
   }
 
+  // Filters out hidden, zero-size, and full-viewport containers
   function isInspectable(el) {
     const rect = el.getBoundingClientRect();
     if (rect.width === 0 || rect.height === 0) return false;
