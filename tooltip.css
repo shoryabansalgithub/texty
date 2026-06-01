@@ -36,3 +36,24 @@
   opacity: 1;
   transform: translateY(0);
 }
+/* Property row */
+.texty-row {
+  display: flex;
+  align-items: center;
+  padding: 3px 0;
+  gap: 10px;
+}
+.texty-label {
+  color: var(--ty-muted);
+  flex-shrink: 0;
+  white-space: nowrap;
+  min-width: 104px;
+}
+.texty-value {
+  color: var(--ty-text);
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
