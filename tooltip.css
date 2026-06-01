@@ -8,7 +8,7 @@
   --ty-radius: 10px;
 
   position: fixed;
-  z-index: 2147483647;
+  z-index: 2147483647; /* max safe z-index, above everything */
   background: var(--ty-bg);
   border: 1px solid var(--ty-border);
   border-radius: var(--ty-radius);
