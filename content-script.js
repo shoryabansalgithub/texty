@@ -62,11 +62,29 @@
   let currentEl = null;
   let lastMouseX = 0;
   let lastMouseY = 0;
+  let textyEnabled = true;
   function init() {
     if (document.getElementById("texty-tooltip")) return;
+
+    // Check persisted enabled state
+    if (typeof chrome !== "undefined" && chrome.storage) {
+      chrome.storage.local.get("enabled", ({ enabled }) => {
+        textyEnabled = enabled !== false;
+      });
+      chrome.runtime.onMessage.addListener((msg) => {
+        if (msg.type === "texty-toggle") {
+          textyEnabled = msg.enabled;
+          if (!textyEnabled) {
+            hideTooltip();
+            if (pinnedEl) unpin();
+          }
+        }
+      });
+    }
+
     tooltip = buildTooltip();
     document.body.appendChild(tooltip);
-    document.addEventListener("mouseover", onMouseOver, { passive: true }); // passive: never calls preventDefault
+    document.addEventListener("mouseover", onMouseOver, { passive: true });
     document.addEventListener("mouseout", onMouseOut, { passive: true });
     document.addEventListener("mousemove", onMouseMove, { passive: true });
     document.addEventListener("click", onClick, { passive: true });
@@ -106,6 +124,7 @@
     return el;
   }
   function onMouseOver(e) {
+    if (!textyEnabled) return;
     if (pinnedEl) return;
     const el = findTextElement(e.target);
     if (!el) return;
@@ -128,6 +147,7 @@
   }
 
   function onMouseMove(e) {
+    if (!textyEnabled) return;
     lastMouseX = e.clientX;
     lastMouseY = e.clientY;
     if (tooltip.classList.contains("texty-visible") && !pinnedEl) {
@@ -136,6 +156,7 @@
   }
 
   function onClick(e) {
+    if (!textyEnabled) return;
     if (e.target.closest("#texty-tooltip")) return;
 
     if (pinnedEl) {

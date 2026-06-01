@@ -3,7 +3,11 @@
   "name": "Texty",
   "version": "1.0.0",
   "description": "Typography inspection layer for the web.",
-  "permissions": ["clipboardWrite"],
+  "permissions": ["clipboardWrite", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Texty"
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
