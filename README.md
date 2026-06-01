@@ -108,3 +108,5 @@ Because opening DevTools to inspect typography is unnecessarily slow. The browse
 - **Hidden elements** — `display:none`, `visibility:hidden`, and `opacity:0` elements are ignored
 - **Input fields** — `<input>` and `<textarea>` are inspectable despite having no DOM text nodes
 - **Viewport edges** — the tooltip auto-flips horizontally and vertically to stay visible
+
+No build step. No dependencies. Edit the source files and reload the extension from `chrome://extensions`.
