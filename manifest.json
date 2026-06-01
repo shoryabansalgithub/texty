@@ -1,0 +1,6 @@
+{
+  "manifest_version": 3,
+  "name": "Texty",
+  "version": "1.0.0",
+  "description": "Typography inspection layer for the web."
+}
