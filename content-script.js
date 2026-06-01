@@ -1,4 +1,6 @@
-/* Texty — Typography Inspection Layer */
+/* Texty — Typography Inspection Layer
+ * Injects a floating tooltip that reveals computed typography
+ * properties on hover/click. No dependencies. */
 
 (function () {
   "use strict";
