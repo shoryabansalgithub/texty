@@ -23,6 +23,31 @@
       label: "color",
       transform: rgbToHex,
     },
+    {
+      key: "textTransform",
+      label: "text-transform",
+      hide: (v) => v === "none",
+    },
+    {
+      key: "textDecorationLine",
+      label: "text-decoration",
+      hide: (v) => v === "none",
+    },
+    {
+      key: "fontStyle",
+      label: "font-style",
+      hide: (v) => v === "normal",
+    },
+    {
+      key: "textAlign",
+      label: "text-align",
+      hide: (v) => v === "start",
+    },
+    {
+      key: "wordSpacing",
+      label: "word-spacing",
+      hide: (v) => v === "0px" || v === "normal",
+    },
   ];
   const HOVER_DELAY = 180;
   const TOOLTIP_GAP = 14;
