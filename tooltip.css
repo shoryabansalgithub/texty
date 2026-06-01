@@ -1,0 +1,25 @@
+#texty-tooltip {
+  --ty-bg: #0a0a0f;
+  --ty-border: #1f1f2e;
+  --ty-text: #e4e4ec;
+  --ty-muted: #6b6b7d;
+  --ty-accent: #8b8b9f;
+  --ty-divider: #1a1a28;
+  --ty-radius: 10px;
+
+  position: fixed;
+  z-index: 2147483647;
+  background: var(--ty-bg);
+  border: 1px solid var(--ty-border);
+  border-radius: var(--ty-radius);
+  padding: 14px 18px;
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  line-height: 1;
+  color: var(--ty-text);
+  min-width: 272px;
+  max-width: 380px;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
