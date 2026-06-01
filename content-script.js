@@ -52,7 +52,7 @@
       hide: (v) => v === "0px" || v === "normal",
     },
   ];
-  const HOVER_DELAY = 180;
+  const HOVER_DELAY = 160;
   const TOOLTIP_GAP = 14;
   let tooltip = null;
   let hoverTimer = null;
