@@ -95,4 +95,67 @@
 
     return el;
   }
-})();
+  function onMouseOver(e) {
+    if (pinnedEl) return;
+    const el = findTextElement(e.target);
+    if (!el) return;
+    currentEl = el;
+    clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(() => {
+      if (currentEl === el) showTooltip(el);
+    }, HOVER_DELAY);
+  }
+
+  function onMouseOut(e) {
+    if (pinnedEl) return;
+    if (e.relatedTarget && e.relatedTarget.closest("#texty-tooltip")) return;
+    const el = findTextElement(e.target);
+    if (el && el === currentEl) {
+      clearTimeout(hoverTimer);
+      hideTooltip();
+      currentEl = null;
+    }
+  }
+
+  function onMouseMove(e) {
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    if (tooltip.classList.contains("texty-visible") && !pinnedEl) {
+      positionTooltip(e.clientX, e.clientY);
+    }
+  }
+
+  function onClick(e) {
+    if (e.target.closest("#texty-tooltip")) return;
+
+    if (pinnedEl) {
+      unpin();
+      const newEl = findTextElement(e.target);
+      if (newEl) {
+        currentEl = newEl;
+        showTooltip(newEl);
+        pin(newEl, e.clientX, e.clientY);
+      }
+      return;
+    }
+
+    const el = findTextElement(e.target);
+    if (!el) return;
+
+    if (currentEl === el && tooltip.classList.contains("texty-visible")) {
+      pin(el, e.clientX, e.clientY);
+      return;
+    }
+
+    clearTimeout(hoverTimer);
+    currentEl = el;
+    showTooltip(el);
+    pin(el, e.clientX, e.clientY);
+  }
+
+  function onKeyDown(e) {
+    if (e.key === "Escape" && pinnedEl) {
+      unpin();
+      hideTooltip();
+    }
+  })();
