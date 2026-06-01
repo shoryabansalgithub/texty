@@ -242,7 +242,7 @@
     let left = cx + TOOLTIP_GAP;
     let top = cy + TOOLTIP_GAP;
     if (left + rect.width > vw - 8) left = cx - rect.width - TOOLTIP_GAP;
-    if (left < 8) left = 8;
+    if (left < 8) left = 8; // clamp to viewport edge
     if (top + rect.height > vh - 8) top = cy - rect.height - TOOLTIP_GAP;
     if (top < 8) top = 8;
     tooltip.style.left = left + "px";
