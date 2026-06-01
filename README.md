@@ -110,3 +110,7 @@ Because opening DevTools to inspect typography is unnecessarily slow. The browse
 - **Viewport edges** — the tooltip auto-flips horizontally and vertically to stay visible
 
 No build step. No dependencies. Edit the source files and reload the extension from `chrome://extensions`.
+
+## Contributing
+
+Texty is intentionally minimal. Before proposing a feature, ask: does it help answer "What is this text?" If not, it probably does not belong in Texty.
